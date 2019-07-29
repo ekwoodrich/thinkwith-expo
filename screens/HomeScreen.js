@@ -12,6 +12,10 @@ class HomeScreen extends React.Component {
           title="Go to Profile"
           onPress={() => this.props.navigation.navigate('Profile')}
         />
+        <Button
+          title="Go to Calendar"
+          onPress={() => this.props.navigation.navigate('Calendar')}
+        />
       </View>
     );
   }
