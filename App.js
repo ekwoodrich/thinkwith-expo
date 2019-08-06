@@ -1,14 +1,16 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import { createStackNavigator, createAppContainer } from "react-navigation";
+import { createSwitchNavigator, createStackNavigator, createAppContainer } from 'react-navigation';
 import HomeScreen from "./screens/HomeScreen"
 import ProfileScreen from "./screens/ProfileScreen"
 import { Provider as PaperProvider } from 'react-native-paper';
 import CalendarScreen from './screens/CalendarScreen';
+import NewNoteScreen from './screens/NewNoteScreen';
+import LoginScreen from './screens/LoginScreen';
+import NewAccountScreen from './screens/NewAccountScreen';
+import AuthLoadingScreen from './screens/AuthLoadingScreen';
 
-
-
-const AppNavigator = createStackNavigator({
+const AppStack = createStackNavigator({
   Home: {
     screen: HomeScreen
   },
@@ -17,11 +19,26 @@ Profile: {
   },
   Calendar : {
     screen: CalendarScreen
+  },
+  NewNote : {
+    screen: NewNoteScreen
   }
 });
 
+const AuthStack = createStackNavigator({ Login: LoginScreen, NewAccount: NewAccountScreen });
 
-const AppContainer = createAppContainer(AppNavigator);
+const AppContainer = createAppContainer(createSwitchNavigator(
+  {
+    AuthLoading: AuthLoadingScreen,
+    App: AppStack,
+    Auth: AuthStack,
+  },
+  {
+    initialRouteName: 'AuthLoading',
+  }
+));
+
+
 
 export default class App extends React.Component {
   render() {

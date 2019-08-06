@@ -5,15 +5,11 @@ import NoteCard from '../components/NoteCard';
 import NewNote from '../components/NewNote';
 import { thinkorange, thinkblack} from '../defs/thinkcolor';
 
-class HomeScreen extends React.Component {
-      static navigationOptions = {
-        header: null
-    }
-
+class NewNoteScreen extends React.Component {
   render() {
     return (
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <Text>Home Screen</Text>
+        <Text>New Note Screen</Text>
         <Button
           title="Go to Profile"
           onPress={() => this.props.navigation.navigate('Profile')}
@@ -22,10 +18,9 @@ class HomeScreen extends React.Component {
           title="Go to Calendar"
           onPress={() => this.props.navigation.navigate('Calendar')}
         />
-        <NewNote onPress={() => this.props.navigation.navigate('NewNote')} />
       </View>
     );
   }
 }
 
-export default HomeScreen;
+export default NewNoteScreen;
