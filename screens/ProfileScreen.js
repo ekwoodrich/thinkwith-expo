@@ -20,8 +20,12 @@ class ProfileScreen extends React.Component {
     );
   }
   _signOutAsync = async () => {
-    await auth.logoutUser();
-    this.props.navigation.navigate('Auth');
+    AsyncStorage.removeItem('userData');
+    let loggedOut = await auth.logoutUser();
+    if (loggedOut) {
+
+      this.props.navigation.navigate('Auth');
+    }
   };
 
 }

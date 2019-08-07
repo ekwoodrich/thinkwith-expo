@@ -12,6 +12,7 @@ import auth from '../utils/auth';
 class AuthLoadingScreen extends React.Component {
   constructor(props) {
     super(props);
+    this._bootstrapAsync();
   }
 
   // Fetch the token from storage then navigate to our appropriate place
@@ -24,7 +25,6 @@ class AuthLoadingScreen extends React.Component {
     this.props.navigation.navigate(userState ? 'App' : 'Auth');
   };
   componentDidMount() {
-    this._bootstrapAsync();
 
   }
 

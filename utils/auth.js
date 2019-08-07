@@ -3,22 +3,24 @@ import {
   AsyncStorage,
   StatusBar,
   StyleSheet
-} from 'react-native';
+} from "react-native";
 
-
-
+import firebase from './firebase';
 class Auth {
-
-async loginUser(user) {
+  async loginUser(user) {
     try {
-       await AsyncStorage.setItem("userData", JSON.stringify(user));
+      await AsyncStorage.setItem("userData", JSON.stringify(user));
     } catch (error) {
       console.log("Something went wrong", error);
     }
   }
-  async logoutUser(user) {
+ async logoutUser() {
     try {
-       await AsyncStorage.setItem("userData", "");
+      firebase.auth().signOut();
+      console.log("logging out");
+    await AsyncStorage.removeItem('userData');
+      return true;
+
     } catch (error) {
       console.log("Something went wrong", error);
     }
@@ -27,7 +29,6 @@ async loginUser(user) {
     try {
       let userData = await AsyncStorage.getItem("userData");
       let data = JSON.parse(userData);
-      console.log(data);
       return JSON.parse(userData);
     } catch (error) {
       console.log("Something went wrong", error);

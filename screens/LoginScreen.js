@@ -27,6 +27,7 @@ class LoginScreen extends React.Component {
   }
 
   render() {
+    
     return (
       <View>
 
@@ -72,7 +73,8 @@ class LoginScreen extends React.Component {
         if (user) {
             auth.loginUser(firebase.auth().currentUser);
             nav.navigate('Home');
-        } 
+        }
+         
     });
   };
 }
