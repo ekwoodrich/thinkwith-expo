@@ -3,6 +3,7 @@ import { Button, View, Text } from "react-native";
 import { createStackNavigator, createAppContainer } from "react-navigation";
 import NoteCard from "../components/NoteCard";
 import NewNote from "../components/NewNote";
+import ThinkBar from "../components/ThinkBar";
 import { thinkorange, thinkblack } from "../defs/thinkcolor";
 import { Appbar } from "react-native-paper";
 import { StyleSheet } from "react-native";
@@ -23,20 +24,11 @@ class HomeScreen extends React.Component {
   render() {
     return (
       <>
-        <Appbar.Header>
-          <Appbar.Action icon="chevron-left" onPress={this._onPrev} />
-          <Appbar.Content title="Today" subtitle="August 8th, 2019"  onPress={() => this.props.navigation.navigate("Calendar")} />
-          <Appbar.Action icon="account-circle"  onPress={() => this.props.navigation.navigate("Profile")} />
-          <Appbar.Action icon="chevron-right" onPress={this._onNext} />
-        </Appbar.Header>
+        <ThinkBar />
         <View
           style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
         >
           <Text>8/5/2019</Text>
-          <Button
-            title="Go to Profile"
-            onPress={() => this.props.navigation.navigate("Profile")}
-          />
           <NewNote onPress={() => this.props.navigation.navigate("NewNote")} />
         </View>
       </>
