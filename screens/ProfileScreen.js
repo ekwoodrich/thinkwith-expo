@@ -2,6 +2,7 @@ import React from 'react';
 import { Button, View, Text, AsyncStorage } from 'react-native';
 import { createStackNavigator, createAppContainer } from 'react-navigation';
 import ProfileAvatar from '../components/ProfileAvatar';
+import auth from '../utils/auth';
 
 class ProfileScreen extends React.Component {
   render() {
@@ -19,7 +20,7 @@ class ProfileScreen extends React.Component {
     );
   }
   _signOutAsync = async () => {
-    await AsyncStorage.clear();
+    await auth.logoutUser();
     this.props.navigation.navigate('Auth');
   };
 

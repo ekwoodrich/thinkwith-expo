@@ -26,20 +26,16 @@ class HomeScreen extends React.Component {
         <Appbar.Header>
           <Appbar.Content title="Today" subtitle="August 8th, 2019" />
           <Appbar.Action icon="chevron-left" onPress={this._onPrev} />
-          <Appbar.Action icon="date-range" onPress={this._onCal} />
+          <Appbar.Action icon="date-range" onPress={() => this.props.navigation.navigate("Calendar")} />
           <Appbar.Action icon="chevron-right" onPress={this._onNext} />
         </Appbar.Header>
         <View
           style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
         >
-          <Text>Home Screen</Text>
+          <Text>8/5/2019</Text>
           <Button
             title="Go to Profile"
             onPress={() => this.props.navigation.navigate("Profile")}
-          />
-          <Button
-            title="Go to Calendar"
-            onPress={() => this.props.navigation.navigate("Calendar")}
           />
           <NewNote onPress={() => this.props.navigation.navigate("NewNote")} />
         </View>

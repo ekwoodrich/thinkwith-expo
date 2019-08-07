@@ -20,7 +20,6 @@ state = {
 
     return (
       <View>
-        <Text>New Account Screen</Text>
         <TextInput
             label='Email'
             value={this.state.text}

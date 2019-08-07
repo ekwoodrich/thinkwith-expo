@@ -13,6 +13,7 @@ import {
 import { Divider, TextInput, Text } from 'react-native-paper';
 import firebase  from '../utils/firebase';
 import { ToastAndroid } from 'react-native';
+import auth from '../utils/auth';
 
 
 class LoginScreen extends React.Component {
@@ -34,6 +35,7 @@ class LoginScreen extends React.Component {
             value={this.state.email}
             onChangeText={email => this.setState({ email })}
             mode='outlined'
+            autoCapitalize='none'
         />
         <TextInput
             label='Password'
@@ -60,28 +62,18 @@ class LoginScreen extends React.Component {
   _signInAsync = async () => {
     const nav = this.props.navigation;
     const thisState = this.state;
-    
-    await AsyncStorage.setItem('userToken', 'abc');
-    console.log(firebase.auth().currentUser);
-    console.log(this.state.email);
-    console.log(this.state.password);
+        
     firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password).catch(function(error) {
         console.log(error); 
-        ToastAndroid.show('Invalid email or password.', ToastAndroid.SHORT);
-
-    
+        ToastAndroid.show('Invalid email or password.', ToastAndroid.SHORT);    
     });
     
     firebase.auth().onAuthStateChanged(function(user) {
         if (user) {
+            auth.loginUser(firebase.auth().currentUser);
             nav.navigate('Home');
-        } else {
-            console.log("failed");
-        }
+        } 
     });
-
-
-    //this.props.navigation.navigate('App');
   };
 }
 
