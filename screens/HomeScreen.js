@@ -24,9 +24,9 @@ class HomeScreen extends React.Component {
     return (
       <>
         <Appbar.Header>
-          <Appbar.Content title="Today" subtitle="August 8th, 2019" />
           <Appbar.Action icon="chevron-left" onPress={this._onPrev} />
-          <Appbar.Action icon="date-range" onPress={() => this.props.navigation.navigate("Calendar")} />
+          <Appbar.Content title="Today" subtitle="August 8th, 2019"  onPress={() => this.props.navigation.navigate("Calendar")} />
+          <Appbar.Action icon="account-circle"  onPress={() => this.props.navigation.navigate("Profile")} />
           <Appbar.Action icon="chevron-right" onPress={this._onNext} />
         </Appbar.Header>
         <View
