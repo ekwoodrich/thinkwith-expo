@@ -5,6 +5,7 @@ import NoteViewer from "../components/NoteViewer";
 import { thinkorange, thinkblack } from "../defs/thinkcolor";
 import { Appbar } from "react-native-paper";
 import { StyleSheet } from "react-native";
+import NewNote from "../components/NewNote";
 
 const styles = StyleSheet.create({
   bottom: {
@@ -23,6 +24,7 @@ class HomeScreen extends React.Component {
     return (
       <>
         <NoteViewer />
+        <NewNote onPress={() => this.props.navigation.navigate("NewNote")} />
       </>
     );
   }

@@ -34,7 +34,6 @@ class NoteDay extends React.Component {
       <View>
         <Text>No notes yet, click + to get started!</Text>
         {noteItems}
-        <NewNote onPress={() => this.props.navigation.navigate("NewNote")} />
       </View>
     );
   }
