@@ -11,6 +11,7 @@ class Auth {
   async loginUser(user) {
     try {
       await AsyncStorage.setItem("userData", JSON.stringify(user));
+      console.log(user);
     } catch (error) {
       console.log("Something went wrong", error);
     }

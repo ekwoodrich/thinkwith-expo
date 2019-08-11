@@ -1,61 +1,70 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import { createSwitchNavigator, createStackNavigator, createAppContainer } from 'react-navigation';
-import HomeScreen from "./screens/HomeScreen"
-import ProfileScreen from "./screens/ProfileScreen"
-import { Provider as PaperProvider } from 'react-native-paper';
-import CalendarScreen from './screens/CalendarScreen';
-import NewNoteScreen from './screens/NewNoteScreen';
-import LoginScreen from './screens/LoginScreen';
-import NewAccountScreen from './screens/NewAccountScreen';
-import AuthLoadingScreen from './screens/AuthLoadingScreen';
+import "./utils/fixtimerbug"; // <<<<<<<<<<<<<<<<<<
+import React from "react";
+import { StyleSheet, Text, View } from "react-native";
+import {
+  createSwitchNavigator,
+  createStackNavigator,
+  createAppContainer
+} from "react-navigation";
+import HomeScreen from "./screens/HomeScreen";
+import ProfileScreen from "./screens/ProfileScreen";
+import { Provider as PaperProvider } from "react-native-paper";
+import CalendarScreen from "./screens/CalendarScreen";
+import NewNoteScreen from "./screens/NewNoteScreen";
+import LoginScreen from "./screens/LoginScreen";
+import NewAccountScreen from "./screens/NewAccountScreen";
+import AuthLoadingScreen from "./screens/AuthLoadingScreen";
+
+console.ignoredYellowBox = ["Setting a timer"];
 
 const AppStack = createStackNavigator({
   Home: {
     screen: HomeScreen
   },
-Profile: {
+  Profile: {
     screen: ProfileScreen
   },
-  Calendar : {
+  Calendar: {
     screen: CalendarScreen
   },
-  NewNote : {
+  NewNote: {
     screen: NewNoteScreen
   }
 });
 
-const AuthStack = createStackNavigator({ Login: LoginScreen, NewAccount: NewAccountScreen });
+const AuthStack = createStackNavigator({
+  Login: LoginScreen,
+  NewAccount: NewAccountScreen
+});
 
-const AppContainer = createAppContainer(createSwitchNavigator(
-  {
-    AuthLoading: AuthLoadingScreen,
-    App: AppStack,
-    Auth: AuthStack,
-  },
-  {
-    initialRouteName: 'AuthLoading',
-  }
-));
-
-
+const AppContainer = createAppContainer(
+  createSwitchNavigator(
+    {
+      AuthLoading: AuthLoadingScreen,
+      App: AppStack,
+      Auth: AuthStack
+    },
+    {
+      initialRouteName: "AuthLoading"
+    }
+  )
+);
 
 export default class App extends React.Component {
   render() {
     return (
-    <PaperProvider>
-    <AppContainer />
-    </PaperProvider>
+      <PaperProvider>
+        <AppContainer />
+      </PaperProvider>
     );
   }
 }
 
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center"
+  }
 });

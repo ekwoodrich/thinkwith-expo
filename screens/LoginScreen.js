@@ -59,10 +59,21 @@ class LoginScreen extends React.Component {
     const thisState = this.state;
 
     Firebase.auth
-      .signInWithEmailAndPassword(this.state.email, this.state.password)
+      .setPersistence("local")
+      .then(function() {
+        console.log("persistence set");
+        Firebase.auth
+          .signInWithEmailAndPassword(thisState.email, thisState.password)
+          .catch(function(error) {
+            console.log(error);
+            ToastAndroid.show("Invalid email or password.", ToastAndroid.SHORT);
+          });
+      })
       .catch(function(error) {
-        console.log(error);
-        ToastAndroid.show("Invalid email or password.", ToastAndroid.SHORT);
+        // Handle Errors here.
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        console.log(errorMessage);
       });
 
     Firebase.auth.onAuthStateChanged(function(user) {

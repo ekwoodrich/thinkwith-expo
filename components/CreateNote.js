@@ -15,7 +15,7 @@ class CreateNote extends React.Component {
     return (
       <>
         <TextInput
-          label="Email"
+          label="Write something!"
           value={this.state.text}
           onChangeText={text => this.setState({ text })}
         />
@@ -25,8 +25,22 @@ class CreateNote extends React.Component {
     );
   }
   _onSubmit = () => {
+    var that = this;
     console.log(this.state.text);
-    console.log(Firebase.db);
+    console.log(Firebase.auth.currentUser.uid);
+    var submitDate = new Date();
+
+    Firebase.db
+      .collection("notes")
+      .add({
+        userid: Firebase.auth.currentUser.uid,
+        note: this.state.text,
+        created: submitDate.toISOString()
+      })
+      .then(function(docRef) {
+        console.log("Document written with ID: ", docRef.id);
+        that.props.navigation.navigate("Home");
+      });
   };
 }
 const styles = StyleSheet.create({
