@@ -13,6 +13,13 @@ import {
 import { withNavigation } from "react-navigation";
 
 import NewNote from "../components/NewNote";
+
+function noNotes(props) {
+  const noNote = props.noNote;
+  if (noNote) {
+    return <Text>No notes yet, click + to get started!</Text>;
+  }
+}
 class NoteDay extends React.Component {
   constructor(props) {
     super(props);
@@ -22,20 +29,16 @@ class NoteDay extends React.Component {
     };
   }
   render() {
-    const noteItems = this.state.notes.map(note => (
-      <Card key={note.id}>
-        <Card.Content>
-          <Paragraph>{note}</Paragraph>
+    <noNotes noNote={this.state.notes} />;
+    const noteItems = this.state.notes.map((note, i) => (
+      <Card key={i}>
+        <Card.Content key={i}>
+          <Paragraph key={i}>{note}</Paragraph>
         </Card.Content>
       </Card>
     ));
 
-    return (
-      <View>
-        <Text>No notes yet, click + to get started!</Text>
-        {noteItems}
-      </View>
-    );
+    return <View>{noteItems}</View>;
   }
   _getNotes() {}
 }

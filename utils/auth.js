@@ -5,7 +5,8 @@ import {
   StyleSheet
 } from "react-native";
 
-import firebase from './firebase';
+import Firebase from "./Firebase";
+
 class Auth {
   async loginUser(user) {
     try {
@@ -14,13 +15,12 @@ class Auth {
       console.log("Something went wrong", error);
     }
   }
- async logoutUser() {
+  async logoutUser() {
     try {
-      firebase.auth().signOut();
+      Firebase.auth.signOut();
       console.log("logging out");
-    await AsyncStorage.removeItem('userData');
+      await AsyncStorage.removeItem("userData");
       return true;
-
     } catch (error) {
       console.log("Something went wrong", error);
     }
