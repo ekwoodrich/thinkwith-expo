@@ -18,7 +18,7 @@ class AuthLoadingScreen extends React.Component {
   _bootstrapAsync = async () => {
     let userState = await auth.getUser();
     console.log("userstate:");
-    console.log(userState ? userState.email : "logged out");
+    console.log(userState ? userState.uid : "logged out");
     // This will switch to the App screen or Auth screen and this loading
     // screen will be unmounted and thrown away.
     this.props.navigation.navigate(userState ? "App" : "Auth");

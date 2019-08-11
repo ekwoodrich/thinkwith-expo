@@ -1,5 +1,6 @@
 import * as React from "react";
 import { View } from "react-native";
+import auth from "../utils/auth";
 
 import {
   Avatar,
@@ -13,6 +14,7 @@ import {
 import { withNavigation } from "react-navigation";
 
 import NewNote from "../components/NewNote";
+import Firebase from "../utils/Firebase";
 
 function noNotes(props) {
   const noNote = props.noNote;
@@ -27,6 +29,7 @@ class NoteDay extends React.Component {
     this.state = {
       notes: ["this is a note", "this is another note"]
     };
+    this._getNotes();
   }
   render() {
     <noNotes noNote={this.state.notes} />;
@@ -40,7 +43,23 @@ class NoteDay extends React.Component {
 
     return <View>{noteItems}</View>;
   }
-  _getNotes() {}
+  async _getNotes() {
+    console.log(Firebase.auth.currentUser);
+    let us = await auth.getUser();
+    Firebase.db
+      .collection("notes")
+      .where("userid", "==", us.uid)
+      .get()
+      .then(function(querySnapshot) {
+        querySnapshot.forEach(function(doc) {
+          // doc.data() is never undefined for query doc snapshots
+          console.log(doc.id, " => ", doc.data());
+        });
+      })
+      .catch(function(error) {
+        console.log("Error getting documents: ", error);
+      });
+  }
 }
 
 export default withNavigation(NoteDay);
