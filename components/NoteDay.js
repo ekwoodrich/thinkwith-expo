@@ -27,7 +27,7 @@ class NoteDay extends React.Component {
     super(props);
 
     this.state = {
-      notes: ["this is a note", "this is another note"]
+      notes: []
     };
     this._getNotes();
   }
@@ -44,6 +44,7 @@ class NoteDay extends React.Component {
     return <View>{noteItems}</View>;
   }
   async _getNotes() {
+    let that = this;
     console.log(Firebase.auth.currentUser);
     let us = await auth.getUser();
     Firebase.db
@@ -53,7 +54,8 @@ class NoteDay extends React.Component {
       .then(function(querySnapshot) {
         querySnapshot.forEach(function(doc) {
           // doc.data() is never undefined for query doc snapshots
-          console.log(doc.id, " => ", doc.data());
+          that.setState({ notes: [...that.state.notes, doc.data().note] });
+          console.log(that.state.notes);
         });
       })
       .catch(function(error) {
