@@ -13,15 +13,17 @@ class CreateNote extends React.Component {
 
   render() {
     return (
-      <>
+      <View>
         <TextInput
+          style={styles.write}
           label="Write something!"
           value={this.state.text}
           onChangeText={text => this.setState({ text })}
+          multiline={true}
         />
 
         <Button title="Submit" onPress={this._onSubmit} />
-      </>
+      </View>
     );
   }
   _onSubmit = () => {
@@ -49,6 +51,9 @@ const styles = StyleSheet.create({
     margin: 16,
     right: 0,
     bottom: 0
+  },
+  write: {
+    height: 200
   }
 });
 
