@@ -16,6 +16,7 @@ import { withNavigation } from "react-navigation";
 import NoteCard from "../components/NoteCard";
 import NewNote from "../components/NewNote";
 import Firebase from "../utils/Firebase";
+import { ScrollView } from "react-native";
 
 function noNotes(props) {
   const noNote = props.noNote;
@@ -38,7 +39,7 @@ class NoteDay extends React.Component {
       <NoteCard key={i} noteBody={note.body} noteCreated={note.created} />
     ));
 
-    return <View>{noteItems}</View>;
+    return <ScrollView>{noteItems}</ScrollView>;
   }
   async _getNotes() {
     let that = this;
