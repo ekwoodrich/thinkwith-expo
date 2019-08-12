@@ -6,7 +6,12 @@ import auth from "../utils/auth";
 
 class ProfileScreen extends React.Component {
   static navigationOptions = {
-    title: "Profile"
+    headerStyle: {
+      borderBottomWidth: 0,
+      elevation: 0,
+      shadowOpacity: 0,
+      shadowColor: "transparent"
+    }
   };
 
   render() {
