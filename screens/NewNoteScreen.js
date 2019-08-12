@@ -11,7 +11,6 @@ class NewNoteScreen extends React.Component {
   render() {
     return (
       <View>
-        <Text>Write something!</Text>
         <CreateNote />
       </View>
     );
