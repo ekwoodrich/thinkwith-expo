@@ -8,11 +8,12 @@ import {
   Appbar
 } from "react-native-paper";
 import { withNavigation } from "react-navigation";
+import { StyleSheet } from "react-native";
 
 class ThinkBar extends React.Component {
   render() {
     return (
-      <Appbar.Header>
+      <Appbar.Header style={styles.bar} dark={false}>
         <Appbar.Action icon="chevron-left" onPress={this.props.onPrev} />
         <Appbar.Content
           title={this.props.day}
@@ -28,5 +29,10 @@ class ThinkBar extends React.Component {
     );
   }
 }
+const styles = StyleSheet.create({
+  bar: {
+    backgroundColor: "white"
+  }
+});
 
 export default withNavigation(ThinkBar);

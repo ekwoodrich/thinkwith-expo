@@ -48,7 +48,7 @@ class NoteDay extends React.Component {
           <ActivityIndicator
             animating={this.state.loading}
             size="large"
-            color="#0000ff"
+            color="#d75400"
           />
         </View>
         <ScrollView>{noteItems}</ScrollView>
@@ -95,7 +95,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     left: 0,
     right: 0,
-    top: 40,
+    top: 70,
     bottom: 0,
     opacity: 0.5,
     backgroundColor: "black",

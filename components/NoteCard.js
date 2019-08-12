@@ -19,15 +19,19 @@ class NoteCard extends React.Component {
           <Paragraph style={styles.created}>{this._formatDate()}</Paragraph>
         </Card.Content>
         <Card.Actions>
-          <Button onPress={this.props.onDelete}>Delete</Button>
-          <Button onPress={this.props.onDelete}>View</Button>
+          <Button color="#888888" onPress={this.props.onDelete}>
+            View
+          </Button>
+          <Button color="#888888" onPress={this.props.onDelete}>
+            Delete
+          </Button>
         </Card.Actions>
       </Card>
     );
   }
 
   _formatDate() {
-    let created = moment(this.props.noteCreated).format("h:mm:ss a");
+    let created = moment(this.props.noteCreated).format("h:mm a");
     return created;
   }
 }
