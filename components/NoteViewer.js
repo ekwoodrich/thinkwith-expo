@@ -23,7 +23,8 @@ class NoteViewer extends React.Component {
 
     this.state = {
       day: moment().format("MMM Do"),
-      dayDiff: 0
+      dayDiff: 0,
+      spinner: false
     };
   }
 
@@ -35,6 +36,7 @@ class NoteViewer extends React.Component {
           onPrev={this.onCalPrev}
           onNext={this.onCalNext}
         />
+
         <NoteDay day={this.state.day} />
       </>
     );

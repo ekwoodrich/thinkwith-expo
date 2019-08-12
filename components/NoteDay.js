@@ -16,7 +16,8 @@ import { withNavigation } from "react-navigation";
 import NoteCard from "../components/NoteCard";
 import NewNote from "../components/NewNote";
 import Firebase from "../utils/Firebase";
-import { ScrollView } from "react-native";
+import { ScrollView, RefreshControl, StyleSheet } from "react-native";
+import { ActivityIndicator } from "react-native";
 
 function noNotes(props) {
   const noNote = props.noNote;
@@ -29,17 +30,30 @@ class NoteDay extends React.Component {
     super(props);
 
     this.state = {
-      notes: []
+      notes: [],
+      loading: true
     };
     this._getNotes();
   }
+
   render() {
     <noNotes noNote={this.state.notes} />;
     const noteItems = this.state.notes.map((note, i) => (
       <NoteCard key={i} noteBody={note.body} noteCreated={note.created} />
     ));
 
-    return <ScrollView>{noteItems}</ScrollView>;
+    return (
+      <View>
+        <View style={styles.loading}>
+          <ActivityIndicator
+            animating={this.state.loading}
+            size="large"
+            color="#0000ff"
+          />
+        </View>
+        <ScrollView>{noteItems}</ScrollView>
+      </View>
+    );
   }
   async _getNotes() {
     let that = this;
@@ -50,6 +64,8 @@ class NoteDay extends React.Component {
       .where("userid", "==", us.uid)
       .get()
       .then(function(querySnapshot) {
+        that.setState({ loading: false });
+
         querySnapshot.forEach(function(doc) {
           // doc.data() is never undefined for query doc snapshots
           that.setState({
@@ -65,6 +81,21 @@ class NoteDay extends React.Component {
         console.log("Error getting documents: ", error);
       });
   }
+
+  componentDidMount() {}
 }
+const styles = StyleSheet.create({
+  loading: {
+    position: "absolute",
+    left: 0,
+    right: 0,
+    top: 40,
+    bottom: 0,
+    opacity: 0.5,
+    backgroundColor: "black",
+    justifyContent: "center",
+    alignItems: "center"
+  }
+});
 
 export default withNavigation(NoteDay);
