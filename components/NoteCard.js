@@ -8,16 +8,20 @@ import {
   Subheading
 } from "react-native-paper";
 
-const NoteCard = props => (
-  <Card>
-    <Card.Content>
-      <Paragraph>{props.noteBody}</Paragraph>
-      <Paragraph>{props.noteCreated}</Paragraph>
-    </Card.Content>
-    <Card.Actions>
-      <Button onPress={props.onDelete}>Delete</Button>
-    </Card.Actions>
-  </Card>
-);
+class NoteCard extends React.Component {
+  render() {
+    return (
+      <Card>
+        <Card.Content>
+          <Paragraph>{this.props.noteBody}</Paragraph>
+          <Paragraph>{this.props.noteCreated}</Paragraph>
+        </Card.Content>
+        <Card.Actions>
+          <Button onPress={this.props.onDelete}>Delete</Button>
+        </Card.Actions>
+      </Card>
+    );
+  }
+}
 
 export default NoteCard;
