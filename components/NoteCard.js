@@ -22,7 +22,10 @@ class NoteCard extends React.Component {
           <Button color="#888888" onPress={this.props.onDelete}>
             View
           </Button>
-          <Button color="#888888" onPress={this.props.onDelete}>
+          <Button
+            color="#888888"
+            onPress={() => this.props.onDelete(this.props.noteId)}
+          >
             Delete
           </Button>
         </Card.Actions>

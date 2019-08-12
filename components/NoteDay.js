@@ -9,7 +9,9 @@ import {
   Title,
   Paragraph,
   Appbar,
-  Text
+  Text,
+  Headline,
+  Subheading
 } from "react-native-paper";
 import { withNavigation } from "react-navigation";
 
@@ -19,10 +21,24 @@ import Firebase from "../utils/Firebase";
 import { ScrollView, RefreshControl, StyleSheet } from "react-native";
 import { ActivityIndicator } from "react-native";
 
-function noNotes(props) {
+function NoNotes(props) {
   const noNote = props.noNote;
-  if (noNote) {
-    return <Text>No notes yet, click + to get started!</Text>;
+  console.log("no notes ", props.noNote);
+  if (noNote == 0) {
+    return (
+      <View
+        style={{
+          flex: 1,
+          alignItems: "center",
+          justifyContent: "center",
+          paddingTop: 50
+        }}
+      >
+        <Subheading>No notes yet, click + to get started!</Subheading>
+      </View>
+    );
+  } else {
+    return null;
   }
 }
 class NoteDay extends React.Component {
@@ -34,16 +50,23 @@ class NoteDay extends React.Component {
       loading: true
     };
     this._getNotes();
+    this.doDelete = this.doDelete.bind(this);
   }
 
   render() {
-    <noNotes noNote={this.state.notes} />;
     const noteItems = this.state.notes.map((note, i) => (
-      <NoteCard key={i} noteBody={note.body} noteCreated={note.created} />
+      <NoteCard
+        key={i}
+        noteBody={note.body}
+        noteCreated={note.created}
+        noteId={note.id}
+        onDelete={this.doDelete}
+      />
     ));
 
     return (
       <View>
+        <NoNotes noNote={this.state.notes} />
         <View style={styles.loading}>
           <ActivityIndicator
             animating={this.state.loading}
@@ -55,6 +78,32 @@ class NoteDay extends React.Component {
       </View>
     );
   }
+  doDelete(noteId) {
+    console.log("deleting: ", noteId);
+    Firebase.db
+      .collection("notes")
+      .doc(noteId)
+      .get()
+      .then(function(doc) {
+        if (doc.exists) {
+          doc.ref
+            .delete()
+            .then(function() {
+              console.log("Document successfully deleted!");
+            })
+            .catch(function(error) {
+              console.error("Error removing document: ", error);
+            });
+        } else {
+          // doc.data() will be undefined in this case
+          console.log("No such document!");
+        }
+      })
+      .catch(function(error) {
+        console.log("Error getting document:", error);
+      });
+  }
+
   async _getNotes() {
     let that = this;
     console.log(Firebase.auth.currentUser);
@@ -63,27 +112,20 @@ class NoteDay extends React.Component {
       .collection("notes")
       .where("userid", "==", us.uid)
       .onSnapshot(function(querySnapshot) {
-        console.log("asdasd");
         that.setState({ loading: false });
+        that.setState({ notes: [] });
 
         querySnapshot.forEach(function(doc) {
-          // doc.data() is never undefined for query doc snapshots
-
-          var index = that.state.notes.findIndex(item => item.id == doc.id);
-          console.log(index);
-          if (index < 0) {
-            that.setState({
-              notes: [
-                ...that.state.notes,
-                {
-                  created: doc.data().created,
-                  body: doc.data().note,
-                  id: doc.id
-                }
-              ]
-            });
-          }
-          console.log(that.state.notes);
+          that.setState({
+            notes: [
+              ...that.state.notes,
+              {
+                created: doc.data().created,
+                body: doc.data().note,
+                id: doc.id
+              }
+            ]
+          });
         });
       });
   }

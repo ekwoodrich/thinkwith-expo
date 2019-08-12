@@ -18,7 +18,7 @@ class ProfileScreen extends React.Component {
     return (
       <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
         <ProfileAvatar />
-        <Button title="Log out" onPress={this._signOutAsync} />
+        <Button mode="text" title="Log out" onPress={this._signOutAsync} />
       </View>
     );
   }
