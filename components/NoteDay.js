@@ -13,6 +13,7 @@ import {
 } from "react-native-paper";
 import { withNavigation } from "react-navigation";
 
+import NoteCard from "../components/NoteCard";
 import NewNote from "../components/NewNote";
 import Firebase from "../utils/Firebase";
 
@@ -34,11 +35,7 @@ class NoteDay extends React.Component {
   render() {
     <noNotes noNote={this.state.notes} />;
     const noteItems = this.state.notes.map((note, i) => (
-      <Card key={i}>
-        <Card.Content key={i}>
-          <Paragraph key={i}>{note}</Paragraph>
-        </Card.Content>
-      </Card>
+      <NoteCard key={i} noteBody={note.body} noteCreated={note.created} />
     ));
 
     return <View>{noteItems}</View>;
@@ -54,7 +51,12 @@ class NoteDay extends React.Component {
       .then(function(querySnapshot) {
         querySnapshot.forEach(function(doc) {
           // doc.data() is never undefined for query doc snapshots
-          that.setState({ notes: [...that.state.notes, doc.data().note] });
+          that.setState({
+            notes: [
+              ...that.state.notes,
+              { created: doc.data().created, body: doc.data().note }
+            ]
+          });
           console.log(that.state.notes);
         });
       })

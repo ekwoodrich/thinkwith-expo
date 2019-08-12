@@ -1,13 +1,22 @@
-import * as React from 'react';
-import { Avatar, Button, Card, Title, Paragraph } from 'react-native-paper';
+import * as React from "react";
+import {
+  Avatar,
+  Button,
+  Card,
+  Title,
+  Paragraph,
+  Subheading
+} from "react-native-paper";
 
-const NoteCard = () => (
+const NoteCard = props => (
   <Card>
     <Card.Content>
-      <Title>Card title</Title>
-      <Paragraph>Card content</Paragraph>
+      <Paragraph>{props.noteBody}</Paragraph>
+      <Paragraph>{props.noteCreated}</Paragraph>
     </Card.Content>
-    
+    <Card.Actions>
+      <Button onPress={props.onDelete}>Delete</Button>
+    </Card.Actions>
   </Card>
 );
 
