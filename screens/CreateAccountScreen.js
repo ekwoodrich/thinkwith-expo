@@ -1,30 +1,22 @@
 import React from "react";
-import { Button, View } from "react-native";
+import { Button, View, Text } from "react-native";
 import { createStackNavigator, createAppContainer } from "react-navigation";
 import NoteCard from "../components/NoteCard";
 import NewNote from "../components/NewNote";
 import { thinkorange, thinkblack } from "../defs/thinkcolor";
-import {
-  ActivityIndicator,
-  AsyncStorage,
-  StatusBar,
-  StyleSheet
-} from "react-native";
-import { Divider, TextInput, Text } from "react-native-paper";
+import { TextInput } from "react-native-paper";
 import Firebase from "../utils/Firebase";
 import { ToastAndroid } from "react-native";
 import auth from "../utils/auth";
 
-class LoginScreen extends React.Component {
+class CreateAccountScreen extends React.Component {
   static navigationOptions = {
-    title: "Please sign in"
+    title: "Create an account"
   };
   state = {
     email: "",
-    password: "",
-    visible: false
+    password: ""
   };
-
   render() {
     return (
       <View>
@@ -33,7 +25,6 @@ class LoginScreen extends React.Component {
           value={this.state.email}
           onChangeText={email => this.setState({ email })}
           mode="outlined"
-          autoCapitalize="none"
         />
         <TextInput
           label="Password"
@@ -43,18 +34,12 @@ class LoginScreen extends React.Component {
           secureTextEntry={true}
         />
 
-        <Button title="Sign in" onPress={this._signInAsync} />
-        <Divider inset={true} />
-
-        <Button
-          title="Create Account"
-          onPress={() => this.props.navigation.navigate("CreateAccount")}
-        />
+        <Button title="Create Account" onPress={this._createAccountAsync} />
       </View>
     );
   }
 
-  _signInAsync = async () => {
+  _createAccountAsync = async () => {
     const nav = this.props.navigation;
     const thisState = this.state;
 
@@ -63,10 +48,10 @@ class LoginScreen extends React.Component {
       .then(function() {
         console.log("persistence set");
         Firebase.auth
-          .signInWithEmailAndPassword(thisState.email, thisState.password)
+          .createUserWithEmailAndPassword(thisState.email, thisState.password)
           .catch(function(error) {
             console.log(error);
-            ToastAndroid.show("Invalid email or password.", ToastAndroid.SHORT);
+            ToastAndroid.show(error.message, ToastAndroid.SHORT);
           });
       })
       .catch(function(error) {
@@ -85,4 +70,4 @@ class LoginScreen extends React.Component {
   };
 }
 
-export default LoginScreen;
+export default CreateAccountScreen;

@@ -12,7 +12,7 @@ import { Provider as PaperProvider } from "react-native-paper";
 import CalendarScreen from "./screens/CalendarScreen";
 import NewNoteScreen from "./screens/NewNoteScreen";
 import LoginScreen from "./screens/LoginScreen";
-import NewAccountScreen from "./screens/NewAccountScreen";
+import CreateAccountScreen from "./screens/CreateAccountScreen";
 import AuthLoadingScreen from "./screens/AuthLoadingScreen";
 
 console.ignoredYellowBox = ["Setting a timer"];
@@ -34,7 +34,7 @@ const AppStack = createStackNavigator({
 
 const AuthStack = createStackNavigator({
   Login: LoginScreen,
-  NewAccount: NewAccountScreen
+  CreateAccount: CreateAccountScreen
 });
 
 const AppContainer = createAppContainer(
