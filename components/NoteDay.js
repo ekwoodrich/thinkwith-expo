@@ -62,23 +62,29 @@ class NoteDay extends React.Component {
     Firebase.db
       .collection("notes")
       .where("userid", "==", us.uid)
-      .get()
-      .then(function(querySnapshot) {
+      .onSnapshot(function(querySnapshot) {
+        console.log("asdasd");
         that.setState({ loading: false });
 
         querySnapshot.forEach(function(doc) {
           // doc.data() is never undefined for query doc snapshots
-          that.setState({
-            notes: [
-              ...that.state.notes,
-              { created: doc.data().created, body: doc.data().note }
-            ]
-          });
+
+          var index = that.state.notes.findIndex(item => item.id == doc.id);
+          console.log(index);
+          if (index < 0) {
+            that.setState({
+              notes: [
+                ...that.state.notes,
+                {
+                  created: doc.data().created,
+                  body: doc.data().note,
+                  id: doc.id
+                }
+              ]
+            });
+          }
           console.log(that.state.notes);
         });
-      })
-      .catch(function(error) {
-        console.log("Error getting documents: ", error);
       });
   }
 
