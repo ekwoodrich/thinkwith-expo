@@ -37,6 +37,6 @@ class Auth {
   }
 }
 
-auth = new Auth();
+const auth = new Auth();
 
 export default auth;

@@ -4,11 +4,7 @@ import "firebase/firestore";
 import firebaseConfig from "../secrets";
 
 app.initializeApp(firebaseConfig);
-Firebase = {
-  /* Helper */
-
-  /* Firebase APIs */
-
+const Firebase = {
   auth: app.auth(),
   db: app.firestore()
 };
