@@ -5,6 +5,14 @@ import ProfileAvatar from "../components/ProfileAvatar";
 import auth from "../utils/auth";
 
 class ProfileScreen extends React.Component {
+  constructor(props) {
+    super(props);
+    this._getUserInfoAsync();
+
+    this.state = {
+      email: ""
+    };
+  }
   static navigationOptions = {
     headerStyle: {
       borderBottomWidth: 0,
@@ -18,6 +26,7 @@ class ProfileScreen extends React.Component {
     return (
       <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
         <ProfileAvatar />
+        <Text>{this.state.email}</Text>
         <Button mode="text" title="Log out" onPress={this._signOutAsync} />
       </View>
     );
@@ -28,6 +37,11 @@ class ProfileScreen extends React.Component {
     if (loggedOut) {
       this.props.navigation.navigate("Auth");
     }
+  };
+  _getUserInfoAsync = async () => {
+    let userInfo = await auth.getUser();
+    this.setState({ email: userInfo.email });
+    console.log(userInfo.email);
   };
 }
 
