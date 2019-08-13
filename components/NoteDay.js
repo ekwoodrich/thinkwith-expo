@@ -20,6 +20,7 @@ import NewNote from "../components/NewNote";
 import Firebase from "../utils/Firebase";
 import { ScrollView, RefreshControl, StyleSheet } from "react-native";
 import { ActivityIndicator } from "react-native";
+import moment from "moment";
 
 function NoNotes(props) {
   const noNote = props.noNote;
@@ -111,6 +112,7 @@ class NoteDay extends React.Component {
     Firebase.db
       .collection("notes")
       .where("userid", "==", us.uid)
+      .where("createdDate", "==", moment().format("YYYY-MM-DD"))
       .onSnapshot(function(querySnapshot) {
         that.setState({ loading: false });
         that.setState({ notes: [] });
