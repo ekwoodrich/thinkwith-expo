@@ -5,6 +5,7 @@ import { withNavigation } from "react-navigation";
 import { TextInput } from "react-native-paper";
 import { Button, View, Text } from "react-native";
 import Firebase from "../utils/Firebase";
+import moment from "moment";
 
 class CreateNote extends React.Component {
   state = {
@@ -27,17 +28,18 @@ class CreateNote extends React.Component {
     );
   }
   _onSubmit = () => {
-    var that = this;
+    let that = this;
     console.log(this.state.text);
     console.log(Firebase.auth.currentUser.uid);
-    var submitDate = new Date();
+    let submitDate = new Date();
 
     Firebase.db
       .collection("notes")
       .add({
         userid: Firebase.auth.currentUser.uid,
         note: this.state.text,
-        created: submitDate.toISOString()
+        createdIso: submitDate.toISOString(),
+        createdDate: moment().format("YYYY-MM-DD")
       })
       .then(function(docRef) {
         console.log("Document written with ID: ", docRef.id);
