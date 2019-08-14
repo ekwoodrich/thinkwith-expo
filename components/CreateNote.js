@@ -39,7 +39,8 @@ class CreateNote extends React.Component {
         userid: Firebase.auth.currentUser.uid,
         note: this.state.text,
         createdIso: submitDate.toISOString(),
-        createdDate: moment().format("YYYY-MM-DD")
+        createdDate: moment().format("YYYY-MM-DD"),
+        createdTime: moment().format("HH:mm:ss")
       })
       .then(function(docRef) {
         console.log("Document written with ID: ", docRef.id);

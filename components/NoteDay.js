@@ -48,12 +48,25 @@ class NoteDay extends React.Component {
 
     this.state = {
       notes: [],
-      loading: true
+      loading: true,
+      lastDay: this.props.day
     };
     this._getNotes();
     this.doDelete = this.doDelete.bind(this);
+    this.unsubscribe = null;
   }
-
+  componentDidMount() {
+    console.log("did mount");
+  }
+  componentDidUpdate() {
+    if (this.state.lastDay != this.props.day) {
+      console.log("date changed");
+      this._getNotes();
+      this.setState({ lastDay: this.props.day });
+    }
+    console.log("did update");
+    console.log(this.props.day);
+  }
   render() {
     const noteItems = this.state.notes.map((note, i) => (
       <NoteCard
@@ -107,13 +120,16 @@ class NoteDay extends React.Component {
 
   async _getNotes() {
     let that = this;
-    console.log(Firebase.auth.currentUser);
+    console.log(this.props.day);
+    //console.log(Firebase.auth.currentUser)
     let us = await auth.getUser();
-    Firebase.db
+    this.unsubscribe = Firebase.db
       .collection("notes")
       .where("userid", "==", us.uid)
-      .where("createdDate", "==", moment().format("YYYY-MM-DD"))
+      .where("createdDate", "==", that.props.day)
       .onSnapshot(function(querySnapshot) {
+        console.log("snapshot");
+        console.log(that.props.day);
         that.setState({ loading: false });
         that.setState({ notes: [] });
 

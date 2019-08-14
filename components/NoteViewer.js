@@ -22,8 +22,7 @@ class NoteViewer extends React.Component {
     super(props);
 
     this.state = {
-      day: moment().format("MMM Do"),
-      dayDiff: 0,
+      day: moment().format("YYYY-MM-DD"),
       spinner: false
     };
   }
@@ -43,20 +42,18 @@ class NoteViewer extends React.Component {
   }
   onCalPrev = () => {
     console.log("on cal prev");
-    this.setState({ dayDiff: this.state.dayDiff + 1 });
     this.setState({
-      day: moment()
-        .subtract(this.state.dayDiff, "days")
-        .calendar()
+      day: moment(this.state.day, "YYYY-MM-DD")
+        .subtract(1, "day")
+        .format("YYYY-MM-DD")
     });
   };
   onCalNext = () => {
     console.log("on cal next");
-    this.setState({ dayDiff: this.state.dayDiff - 1 });
     this.setState({
-      day: moment()
-        .subtract(this.state.dayDiff, "days")
-        .calendar()
+      day: moment(this.state.day, "YYYY-MM-DD")
+        .add(1, "day")
+        .format("YYYY-MM-DD")
     });
   };
 }
