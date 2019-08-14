@@ -20,38 +20,54 @@ import moment from "moment";
 class NoteViewer extends React.Component {
   constructor(props) {
     super(props);
-    console.log("day prop", this.props.day);
+
+    if (this.props.day) {
+    }
+    this.lastDay = moment().format("YYYY-MM-DD");
+
     this.state = {
+      day: moment().format("YYYY-MM-DD"),
       spinner: false
     };
   }
 
+  componentDidUpdate() {
+    let dayParam = this.props.navigation.getParam("day", this.state.day);
+    console.log("daypayam", dayParam);
+    if (dayParam != this.state.day) {
+      this.setState({ day: dayParam });
+    }
+  }
+
   render() {
-    const day = this.props.day ? this.props.day : moment().format("YYYY-MM-DD");
-    console.log("ternary day", day);
-    console.log(day);
     return (
       <>
-        <ThinkBar day={day} onPrev={this.onCalPrev} onNext={this.onCalNext} />
+        <ThinkBar
+          day={this.state.day}
+          onPrev={this.onCalPrev}
+          onNext={this.onCalNext}
+        />
 
-        <NoteDay day={day} />
+        <NoteDay day={this.state.day} />
       </>
     );
   }
   onCalPrev = () => {
     console.log("on cal prev");
-    this.setState({
-      day: moment(this.state.day, "YYYY-MM-DD")
-        .subtract(1, "day")
-        .format("YYYY-MM-DD")
+    let calPrev = moment(this.state.day, "YYYY-MM-DD")
+      .subtract(1, "day")
+      .format("YYYY-MM-DD");
+    this.props.navigation.navigate("Home", {
+      day: calPrev
     });
   };
   onCalNext = () => {
     console.log("on cal next");
-    this.setState({
-      day: moment(this.state.day, "YYYY-MM-DD")
-        .add(1, "day")
-        .format("YYYY-MM-DD")
+    let calNext = moment(this.state.day, "YYYY-MM-DD")
+      .add(1, "day")
+      .format("YYYY-MM-DD");
+    this.props.navigation.navigate("Home", {
+      day: calNext
     });
   };
 }
