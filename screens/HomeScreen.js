@@ -6,6 +6,7 @@ import { thinkorange, thinkblack } from "../defs/thinkcolor";
 import { Appbar } from "react-native-paper";
 import { StyleSheet } from "react-native";
 import NewNote from "../components/NewNote";
+import moment from "moment";
 
 const styles = StyleSheet.create({
   bottom: {
@@ -21,9 +22,15 @@ class HomeScreen extends React.Component {
   };
 
   render() {
+    console.log("param", this.props.navigation.getParam("day", "no date"));
+    const day = this.props.navigation.getParam(
+      "day",
+      moment().format("YYYY-MM-DD")
+    );
+
     return (
       <>
-        <NoteViewer />
+        <NoteViewer day={day} />
         <NewNote onPress={() => this.props.navigation.navigate("NewNote")} />
       </>
     );

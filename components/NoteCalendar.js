@@ -3,13 +3,17 @@ import React from "react";
 import { Calendar, CalendarList, Agenda } from "react-native-calendars";
 
 import { Text, StyleSheet, ScrollView, View } from "react-native";
+import { withNavigation } from "react-navigation";
 
-const NoteCalendar = () => (
+const NoteCalendar = ({ navigation }) => (
   <Calendar
     style={styles.calendar}
     hideExtraDays
     onDayPress={day => {
-      console.log("selected day", day);
+      console.log("selected day", day.dateString);
+      navigation.navigate("Home", {
+        day: day.dateString
+      });
     }}
   />
 );
@@ -34,4 +38,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default NoteCalendar;
+export default withNavigation(NoteCalendar);

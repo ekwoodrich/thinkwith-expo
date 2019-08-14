@@ -20,23 +20,21 @@ import moment from "moment";
 class NoteViewer extends React.Component {
   constructor(props) {
     super(props);
-
+    console.log("day prop", this.props.day);
     this.state = {
-      day: moment().format("YYYY-MM-DD"),
       spinner: false
     };
   }
 
   render() {
+    const day = this.props.day ? this.props.day : moment().format("YYYY-MM-DD");
+    console.log("ternary day", day);
+    console.log(day);
     return (
       <>
-        <ThinkBar
-          day={this.state.day}
-          onPrev={this.onCalPrev}
-          onNext={this.onCalNext}
-        />
+        <ThinkBar day={day} onPrev={this.onCalPrev} onNext={this.onCalNext} />
 
-        <NoteDay day={this.state.day} />
+        <NoteDay day={day} />
       </>
     );
   }
