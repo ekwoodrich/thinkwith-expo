@@ -154,7 +154,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     left: 0,
     right: 0,
-    top: 70,
+    top: 120,
     bottom: 0,
     opacity: 0.5,
     backgroundColor: "black",
