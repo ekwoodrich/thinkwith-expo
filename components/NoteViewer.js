@@ -23,7 +23,6 @@ class NoteViewer extends React.Component {
 
     if (this.props.day) {
     }
-    this.lastDay = moment().format("YYYY-MM-DD");
 
     this.state = {
       day: moment().format("YYYY-MM-DD"),
@@ -33,17 +32,26 @@ class NoteViewer extends React.Component {
 
   componentDidUpdate() {
     let dayParam = this.props.navigation.getParam("day", this.state.day);
-    console.log("daypayam", dayParam);
     if (dayParam != this.state.day) {
       this.setState({ day: dayParam });
     }
   }
 
   render() {
+    const dayRelative = moment(this.state.day, "YYYY-MM-DD").calendar(null, {
+      sameDay: "[Today]",
+      nextDay: "[Tomorrow]",
+      nextWeek: "[Next] dddd",
+      lastDay: "[Yesterday]",
+      lastWeek: "[Last] dddd",
+      sameElse: "dddd"
+    });
+
     return (
       <>
         <ThinkBar
           day={this.state.day}
+          dayRelative={dayRelative}
           onPrev={this.onCalPrev}
           onNext={this.onCalNext}
         />
@@ -53,7 +61,6 @@ class NoteViewer extends React.Component {
     );
   }
   onCalPrev = () => {
-    console.log("on cal prev");
     let calPrev = moment(this.state.day, "YYYY-MM-DD")
       .subtract(1, "day")
       .format("YYYY-MM-DD");
@@ -62,7 +69,6 @@ class NoteViewer extends React.Component {
     });
   };
   onCalNext = () => {
-    console.log("on cal next");
     let calNext = moment(this.state.day, "YYYY-MM-DD")
       .add(1, "day")
       .format("YYYY-MM-DD");

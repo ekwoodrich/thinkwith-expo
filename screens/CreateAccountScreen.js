@@ -34,7 +34,11 @@ class CreateAccountScreen extends React.Component {
           secureTextEntry={true}
         />
 
-        <Button title="Create Account" onPress={this._createAccountAsync} />
+        <Button
+          title="Create Account"
+          color="#ed6b18"
+          onPress={this._createAccountAsync}
+        />
       </View>
     );
   }

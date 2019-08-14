@@ -19,9 +19,9 @@ class NoteCard extends React.Component {
           <Paragraph style={styles.created}>{this._formatDate()}</Paragraph>
         </Card.Content>
         <Card.Actions>
-          <Button color="#888888" onPress={this.props.onDelete}>
+          {/* <Button color="#888888" onPress={this.props.onDelete}>
             View
-          </Button>
+          </Button> */}
           <Button
             color="#888888"
             onPress={() => this.props.onDelete(this.props.noteId)}

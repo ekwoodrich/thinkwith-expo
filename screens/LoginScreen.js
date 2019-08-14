@@ -43,11 +43,12 @@ class LoginScreen extends React.Component {
           secureTextEntry={true}
         />
 
-        <Button title="Sign in" onPress={this._signInAsync} />
+        <Button title="Sign in" color="#ed6b18" onPress={this._signInAsync} />
         <Divider inset={true} />
 
         <Button
           title="Create Account"
+          color="#ed6b18"
           onPress={() => this.props.navigation.navigate("CreateAccount")}
         />
       </View>

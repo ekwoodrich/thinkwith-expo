@@ -120,7 +120,6 @@ class NoteDay extends React.Component {
 
   async _getNotes() {
     let that = this;
-    console.log(this.props.day);
     //console.log(Firebase.auth.currentUser)
     let us = await auth.getUser();
     this.unsubscribe = Firebase.db
