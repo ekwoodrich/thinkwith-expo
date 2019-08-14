@@ -2,7 +2,7 @@ import * as React from "react";
 import { StyleSheet } from "react-native";
 import { FAB } from "react-native-paper";
 import { withNavigation } from "react-navigation";
-import { TextInput } from "react-native-paper";
+import { TextInput, Subheading } from "react-native-paper";
 import { Button, View, Text } from "react-native";
 import Firebase from "../utils/Firebase";
 import moment from "moment";
@@ -13,6 +13,7 @@ class CreateNote extends React.Component {
   };
 
   render() {
+    console.log("profile profs", this.props.navigation.getParam("day"));
     return (
       <View>
         <TextInput
@@ -21,6 +22,11 @@ class CreateNote extends React.Component {
           value={this.state.text}
           onChangeText={text => this.setState({ text })}
           multiline={true}
+        />
+        <TextInput
+          label="Date"
+          disabled={true}
+          value={this.props.navigation.getParam("day")}
         />
 
         <Button title="Submit" onPress={this._onSubmit} />
@@ -39,12 +45,21 @@ class CreateNote extends React.Component {
         userid: Firebase.auth.currentUser.uid,
         note: this.state.text,
         createdIso: submitDate.toISOString(),
-        createdDate: moment().format("YYYY-MM-DD"),
-        createdTime: moment().format("HH:mm:ss")
+        createdDate: moment(
+          this.props.navigation.getParam("day"),
+          "YYYY-MM-DD"
+        ).format("YYYY-MM-DD"),
+        createdTime: moment(
+          this.props.navigation.getParam("day"),
+          "YYYY-MM-DD"
+        ).format("HH:mm:ss")
       })
       .then(function(docRef) {
         console.log("Document written with ID: ", docRef.id);
-        that.props.navigation.navigate("Home");
+        that.props.navigation.navigate("Home"),
+          {
+            day: that.props.navigation.getParam("day")
+          };
       });
   };
 }

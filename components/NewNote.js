@@ -10,7 +10,11 @@ class NewNote extends React.Component {
         style={styles.fab}
         icon="add"
         color="white"
-        onPress={() => this.props.navigation.navigate("NewNote")}
+        onPress={() =>
+          this.props.navigation.navigate("NewNote", {
+            day: this.props.day
+          })
+        }
       />
     );
   }

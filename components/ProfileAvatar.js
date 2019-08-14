@@ -1,5 +1,6 @@
 import * as React from "react";
 import { Avatar } from "react-native-paper";
+import { View } from "react-native";
 
 const ProfileAvatar = () => (
   <Avatar.Icon

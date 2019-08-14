@@ -137,7 +137,7 @@ class NoteDay extends React.Component {
             notes: [
               ...that.state.notes,
               {
-                created: doc.data().created,
+                createdDate: doc.data().created,
                 body: doc.data().note,
                 id: doc.id
               }

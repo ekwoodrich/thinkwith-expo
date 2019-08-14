@@ -31,7 +31,10 @@ class HomeScreen extends React.Component {
     return (
       <>
         <NoteViewer day={day} />
-        <NewNote onPress={() => this.props.navigation.navigate("NewNote")} />
+        <NewNote
+          day={day}
+          onPress={() => this.props.navigation.navigate("NewNote")}
+        />
       </>
     );
   }
