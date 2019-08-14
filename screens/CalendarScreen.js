@@ -10,15 +10,7 @@ class CalendarScreen extends React.Component {
         <NoteCalendar />
         <View
           style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
-        >
-          <Text>Calendar Screen</Text>
-          <Button
-            title="Go to Home"
-            onPress={() =>
-              this.props.navigation.navigate("Home", { day: "2019-08-01" })
-            }
-          />
-        </View>
+        ></View>
       </>
     );
   }
