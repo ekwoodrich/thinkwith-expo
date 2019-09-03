@@ -94,6 +94,10 @@ const CreateNote = ({ dispatch, navigation }) => {
         onPress={() => {
           console.log("dispatch add note");
           dispatch(addNote(input));
+          navigation.navigate("Home"),
+            {
+              day: navigation.getParam("day")
+            };
         }}
       />
     </View>
