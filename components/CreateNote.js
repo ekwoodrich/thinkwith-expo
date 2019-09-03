@@ -6,7 +6,10 @@ import { TextInput, Subheading } from "react-native-paper";
 import { Button, View, Text } from "react-native";
 import Firebase from "../utils/Firebase";
 import moment from "moment";
+import { connect } from "react-redux";
+import { addNote } from "../actions";
 
+/*
 class CreateNote extends React.Component {
   state = {
     text: ""
@@ -61,8 +64,42 @@ class CreateNote extends React.Component {
             day: that.props.navigation.getParam("day")
           };
       });
-  };
+
+      console.log("on submit");
+  }; 
+
 }
+
+*/
+const CreateNote = ({ dispatch, navigation }) => {
+  let input;
+
+  return (
+    <View>
+      <TextInput
+        style={styles.write}
+        label="Write something!"
+        onChangeText={text => (input = text)}
+        multiline={true}
+      />
+      <TextInput
+        label="Date"
+        disabled={true}
+        value={navigation.getParam("day")}
+      />
+
+      <Button
+        title="Submit"
+        color="#ed6b18"
+        onPress={() => {
+          console.log("dispatch add note");
+          dispatch(addNote(input));
+        }}
+      />
+    </View>
+  );
+};
+
 const styles = StyleSheet.create({
   fab: {
     position: "absolute",
@@ -75,4 +112,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default withNavigation(CreateNote);
+export default connect()(withNavigation(CreateNote));
