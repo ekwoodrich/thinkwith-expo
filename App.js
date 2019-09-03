@@ -14,8 +14,13 @@ import NewNoteScreen from "./screens/NewNoteScreen";
 import LoginScreen from "./screens/LoginScreen";
 import CreateAccountScreen from "./screens/CreateAccountScreen";
 import AuthLoadingScreen from "./screens/AuthLoadingScreen";
+import { Provider } from "react-redux";
+import rootReducer from "./reducers";
+import { createStore } from "redux";
 
 console.ignoredYellowBox = ["Setting a timer"];
+
+const store = createStore(rootReducer);
 
 const AppStack = createStackNavigator({
   Home: {
@@ -54,7 +59,9 @@ export default class App extends React.Component {
   render() {
     return (
       <PaperProvider>
-        <AppContainer />
+        <Provider store={store}>
+          <AppContainer />
+        </Provider>
       </PaperProvider>
     );
   }

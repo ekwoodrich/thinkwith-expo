@@ -29,7 +29,7 @@ class CreateNote extends React.Component {
           value={this.props.navigation.getParam("day")}
         />
 
-        <Button title="Submit" onPress={this._onSubmit} />
+        <Button title="Submit" color="#ed6b18" onPress={this._onSubmit} />
       </View>
     );
   }

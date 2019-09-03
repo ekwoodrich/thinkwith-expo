@@ -30,7 +30,11 @@ const NoteCalendar = ({ navigation }) => {
           querySnapshot.forEach(function(doc) {
             marked = {
               ...marked,
-              [doc.data().createdDate]: { marked: true, dotColor: "#ed6b18" }
+              [doc.data().createdDate]: {
+                marked: true,
+                dotColor: "#ed6b18",
+                selectedColor: "red"
+              }
             };
           });
           console.log(marked);
