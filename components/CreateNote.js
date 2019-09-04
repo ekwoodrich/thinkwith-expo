@@ -9,7 +9,6 @@ import moment from "moment";
 import { connect } from "react-redux";
 import { addNote } from "../actions";
 
-/*
 class CreateNote extends React.Component {
   state = {
     text: ""
@@ -65,12 +64,10 @@ class CreateNote extends React.Component {
           };
       });
 
-      console.log("on submit");
-  }; 
-
+    console.log("on submit");
+  };
 }
-
-*/
+/*
 const CreateNote = ({ dispatch, navigation }) => {
   let input;
 
@@ -103,7 +100,7 @@ const CreateNote = ({ dispatch, navigation }) => {
     </View>
   );
 };
-
+*/
 const styles = StyleSheet.create({
   fab: {
     position: "absolute",
